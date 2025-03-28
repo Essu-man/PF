@@ -1,50 +1,134 @@
+/* Dashboard.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Mono:wght@300;400;700&display=swap');
+
 .dashboardContainer {
-    transition: all 0.3s ease;
-  }
+  background-color: #f9fafb;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
 
-  .chartContainer {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
+.pageTitle {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #2c3e50 0%, #34495e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  .inventoryItem {
-    transition: transform 0.2s ease;
-  }
+.inventoryCardContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
 
-  .inventoryItem:hover {
-    transform: scale(1.02);
-  }
+.inventoryItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  overflow: hidden;
+}
 
-  .lowStockPulse {
-    animation: pulse 1.5s infinite;
-  }
+.inventoryCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f0f4f8;
+}
 
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-    50% {
-      transform: scale(1.05);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-  }
+.inventoryIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 12px;
+  background-color: #e6f2ff;
+}
 
-  .medicationTable {
-    border-collapse: separate;
-    border-spacing: 0;
-  }
+.inventoryIcon {
+  color: #3498db;
+  transition: transform 0.3s ease;
+}
 
-  .medicationTable tr:nth-child(even) {
-    background-color: rgba(249, 250, 251, 0.5);
-  }
+.lowStockIcon {
+  color: #e74c3c;
+  animation: shake 0.5s infinite;
+}
 
-  .medicationTable tr:hover {
-    background-color: rgba(229, 231, 235, 0.3);
-    transition: background-color 0.2s ease;
+.inventoryCardTitle {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.inventoryCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1rem;
+}
+
+.stockInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stockQuantity {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #34495e;
+}
+
+.lowStockAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #e74c3c;
+}
+
+.alertIcon {
+  color: #e74c3c;
+}
+
+.lowStockPulse {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  animation: pulse 1.5s infinite;
+}
+
+.lowStockCard {
+  border: 2px solid #e74c3c;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .inventoryCardContainer {
+    flex-direction: column;
   }
+}
+
+/* Additional existing styles remain the same as in the previous version */

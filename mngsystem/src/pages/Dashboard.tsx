@@ -1,3 +1,4 @@
+import { AlertTriangle, Package, Wheat } from 'lucide-react';
 import React from 'react';
 import {
     CartesianGrid,
@@ -13,7 +14,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import styles from '../styles/Dashboard.module.css';
 
 const Dashboard: React.FC = () => {
-  // Mock data - replace with actual data from backend/Redux
   const eggProductionData = [
     { date: '2024-03-01', eggs: 450, target: 500 },
     { date: '2024-03-02', eggs: 475, target: 500 },
@@ -21,8 +21,8 @@ const Dashboard: React.FC = () => {
   ];
 
   const feedInventoryData = [
-    { type: 'Layer Feed', current: 500, low: 200 },
-    { type: 'Starter Feed', current: 350, low: 150 },
+    { type: 'Layer Feed', current: 500, low: 200, icon: Wheat },
+    { type: 'Starter Feed', current: 350, low: 150, icon: Package },
   ];
 
   const medicationData = [
@@ -35,12 +35,12 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={`p-6 space-y-6 ${styles.dashboardContainer}`}>
-      <h1 className="text-3xl font-bold">Farm Dashboard</h1>
+      <h1 className={styles.pageTitle}>Farm Dashboard</h1>
 
       {/* Egg Production Card */}
       <Card className={styles.chartContainer}>
         <CardHeader>
-          <CardTitle>Egg Production Trends</CardTitle>
+          <CardTitle className={styles.cardTitle}>Egg Production Trends</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -57,38 +57,52 @@ const Dashboard: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Feed Inventory Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Feed Inventory</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {feedInventoryData.map((feed) => (
-            <div
+      {/* Feed Inventory Cards */}
+      <div className={styles.inventoryCardContainer}>
+        {feedInventoryData.map((feed) => {
+          const Icon = feed.icon;
+          const isLowStock = feed.current < feed.low;
+
+          return (
+            <Card
               key={feed.type}
-              className={`p-4 mb-2 rounded ${styles.inventoryItem} ${feed.current < feed.low ? 'bg-red-100' : 'bg-green-100'}`}
+              className={`${styles.inventoryItem} ${isLowStock ? styles.lowStockCard : ''}`}
+              data-status={isLowStock ? 'low' : 'sufficient'}
             >
-              <h3 className="font-semibold">{feed.type}</h3>
-              <p>Current Stock: {feed.current} kg</p>
-              {feed.current < feed.low && (
-                <p className={`text-red-600 font-bold ${styles.lowStockPulse}`}>
-                  Low Stock Alert!
-                </p>
-              )}
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+              <CardHeader className={styles.inventoryCardHeader}>
+                <div className={styles.inventoryIconContainer}>
+                  <Icon
+                    className={`${styles.inventoryIcon} ${isLowStock ? styles.lowStockIcon : ''}`}
+                    size={40}
+                  />
+                </div>
+                <CardTitle className={styles.inventoryCardTitle}>{feed.type}</CardTitle>
+              </CardHeader>
+              <CardContent className={styles.inventoryCardContent}>
+                <div className={styles.stockInfo}>
+                  <p className={styles.stockQuantity}>Current Stock: {feed.current} kg</p>
+                  {isLowStock && (
+                    <div className={styles.lowStockAlert}>
+                      <AlertTriangle className={styles.alertIcon} size={20} />
+                      <span className={styles.lowStockPulse}>Low Stock Alert!</span>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
 
       {/* Medication Tracking Card */}
       <Card>
         <CardHeader>
-          <CardTitle>Medication Schedule</CardTitle>
+          <CardTitle className={styles.cardTitle}>Medication Schedule</CardTitle>
         </CardHeader>
         <CardContent>
           <table className={`w-full ${styles.medicationTable}`}>
             <thead>
-              <tr className="bg-gray-100">
+              <tr>
                 <th className="p-2 text-left">Medication</th>
                 <th className="p-2 text-left">Last Administered</th>
                 <th className="p-2 text-left">Next Due</th>
