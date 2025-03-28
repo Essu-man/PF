@@ -131,6 +131,31 @@
   margin-bottom: 1.5rem;
 }
 
+.inventoryCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 2rem; /* Increased padding */
+  background-color: #faf5f0;
+}
+.stockQuantity {
+  font-size: 1.5rem; /* Larger font size */
+  font-weight: 600; /* Bolder font */
+  color: #2c3e50; /* Darker color for emphasis */
+  text-align: center; /* Center the text */
+}
+
+.lowStockAlert {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the alert */
+  color: var(--status-danger);
+  font-weight: 600;
+  gap: 0.5rem;
+  margin-top: 1rem; /* Added more space above the alert */
+}
+
 .inventoryItem {
   flex: 2;
   display: flex;
