@@ -1,10 +1,13 @@
 import { AlertTriangle, Package, Wheat } from 'lucide-react';
 import React from 'react';
 import {
+    Bar,
+    BarChart,
     CartesianGrid,
+    Cell,
     Legend,
-    Line,
-    LineChart,
+    Pie,
+    PieChart,
     ResponsiveContainer,
     Tooltip,
     XAxis,
@@ -14,10 +17,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import styles from '../styles/Dashboard.module.css';
 
 const Dashboard: React.FC = () => {
-  const eggProductionData = [
-    { date: '2024-03-01', eggs: 450, target: 500 },
-    { date: '2024-03-02', eggs: 475, target: 500 },
-    { date: '2024-03-03', eggs: 520, target: 500 },
+  // Egg Size Production Data
+  const eggSizeData = [
+    { size: 'Small', count: 50, color: '#3498db' },
+    { size: 'Medium', count: 200, color: '#2ecc71' },
+    { size: 'Large', count: 350, color: '#f39c12' },
+    { size: 'Extra Large', count: 250, color: '#e74c3c' },
+    { size: 'Jumbo', count: 100, color: '#9b59b6' }
+  ];
+
+  // Animal Mortality Data
+  const mortalityData = [
+    { name: 'Chickens', value: 5, color: '#e74c3c' },
+    { name: 'Healthy', value: 495, color: '#2ecc71' }
   ];
 
   const feedInventoryData = [
@@ -25,37 +37,88 @@ const Dashboard: React.FC = () => {
     { type: 'Starter Feed', current: 350, low: 150, icon: Package },
   ];
 
+  // Expanded Medication Data
   const medicationData = [
     {
       medication: 'Newcastle Vaccine',
+      type: 'Viral Prevention',
       lastAdministered: '2024-02-15',
-      nextDue: '2024-04-15'
+      nextDue: '2024-04-15',
+      dosage: '0.5 mL',
+      status: 'Upcoming'
     },
+    {
+      medication: 'Coccidiosis Treatment',
+      type: 'Parasitic Control',
+      lastAdministered: '2024-01-20',
+      nextDue: '2024-05-20',
+      dosage: '1 mL',
+      status: 'Pending'
+    },
+    {
+      medication: 'Deworming',
+      type: 'Parasite Prevention',
+      lastAdministered: '2024-03-01',
+      nextDue: '2024-06-01',
+      dosage: '2 mL',
+      status: 'Current'
+    }
   ];
 
   return (
     <div className={`p-6 space-y-6 ${styles.dashboardContainer}`}>
-      <h1 className={styles.pageTitle}>Farm Dashboard</h1>
+      <h1 className={styles.pageTitle}>Poultry Farm</h1>
 
-      {/* Egg Production Card */}
-      <Card className={styles.chartContainer}>
-        <CardHeader>
-          <CardTitle className={styles.cardTitle}>Egg Production Trends</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={eggProductionData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="eggs" stroke="#8884d8" />
-              <Line type="monotone" dataKey="target" stroke="#82ca9d" />
-            </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
+      {/* Egg Production Charts */}
+      <div className={styles.chartContainer}>
+        <Card className={styles.halfChart}>
+          <CardHeader>
+            <CardTitle className={`text-center ${styles.chartTitle}`}>Egg Size Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={eggSizeData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="size" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="count" fill="#8884d8">
+                  {eggSizeData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card className={styles.halfChart}>
+          <CardHeader>
+            <CardTitle className={`text-center ${styles.chartTitle}`}>Animal Mortality</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={500}>
+              <PieChart>
+                <Pie
+                  data={mortalityData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={120}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {mortalityData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Feed Inventory Cards */}
       <div className={styles.inventoryCardContainer}>
@@ -97,23 +160,44 @@ const Dashboard: React.FC = () => {
       {/* Medication Tracking Card */}
       <Card>
         <CardHeader>
-          <CardTitle className={styles.cardTitle}>Medication Schedule</CardTitle>
+          <CardTitle className={`text-center ${styles.medicationTitle}`}>Medication Schedule</CardTitle>
         </CardHeader>
         <CardContent>
           <table className={`w-full ${styles.medicationTable}`}>
             <thead>
               <tr>
-                <th className="p-2 text-left">Medication</th>
-                <th className="p-2 text-left">Last Administered</th>
-                <th className="p-2 text-left">Next Due</th>
+                <th className="p-2 text-center">Medication</th>
+                <th className="p-2 text-center">Type</th>
+                <th className="p-2 text-center">Last Administered</th>
+                <th className="p-2 text-center">Next Due</th>
+                <th className="p-2 text-center">Dosage</th>
+                <th className="p-2 text-center">Status</th>
               </tr>
             </thead>
             <tbody>
               {medicationData.map((med) => (
-                <tr key={med.medication} className="border-b">
-                  <td className="p-2">{med.medication}</td>
-                  <td className="p-2">{med.lastAdministered}</td>
-                  <td className="p-2">{med.nextDue}</td>
+                <tr
+                  key={med.medication}
+                  className={`border-b ${
+                    med.status === 'Upcoming' ? styles.upcomingMedication :
+                    med.status === 'Current' ? styles.currentMedication :
+                    styles.pendingMedication
+                  }`}
+                >
+                  <td className="p-2 text-center">{med.medication}</td>
+                  <td className="p-2 text-center">{med.type}</td>
+                  <td className="p-2 text-center">{med.lastAdministered}</td>
+                  <td className="p-2 text-center">{med.nextDue}</td>
+                  <td className="p-2 text-center">{med.dosage}</td>
+                  <td className="p-2 text-center">
+                    <span className={`${styles.medicationStatusBadge} ${
+                      med.status === 'Upcoming' ? styles.upcomingBadge :
+                      med.status === 'Current' ? styles.currentBadge :
+                      styles.pendingBadge
+                    }`}>
+                      {med.status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
