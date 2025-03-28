@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Layout from './components/layout/layout';
+import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
 import EggLogging from './pages/EggLogging';
 import FeedManagement from './pages/FeedManagement';
