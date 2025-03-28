@@ -200,12 +200,12 @@
 }
 
 .medicationTable thead {
-  background: linear-gradient(135deg, var(--poultry-primary) 0%, var(--poultry-secondary) 100%);
+  background:  var(--poultry-secondary) ;
   color: white;
 }
 
 .medicationTable th {
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
   font-weight: 600;
   text-transform: uppercase;

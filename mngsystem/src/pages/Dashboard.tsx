@@ -28,8 +28,9 @@ const Dashboard: React.FC = () => {
 
   // Animal Mortality Data
   const mortalityData = [
-    { name: 'Chickens', value: 5, color: '#e74c3c' },
-    { name: 'Healthy', value: 495, color: '#2ecc71' }
+    { name: 'Healthy', value: 650, color: '#3498db'},
+    { name: 'Sick', value: 150, color: '#2ecc71' },
+    { name: 'Dead', value: 100, color: '#e74c3c'}
   ];
 
   const feedInventoryData = [
@@ -67,7 +68,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={`p-6 space-y-6 ${styles.dashboardContainer}`}>
-      <h1 className={styles.pageTitle}>Poultry Farm</h1>
+      <h1 className={styles.pageTitle}>Dashboard</h1>
 
       {/* Egg Production Charts */}
       <div className={styles.chartContainer}>
