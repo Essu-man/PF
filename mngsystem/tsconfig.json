@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/lib/*": ["src/lib/*"] // Added mapping for lib directory
+    }
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
