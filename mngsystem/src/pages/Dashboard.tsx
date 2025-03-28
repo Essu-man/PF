@@ -10,6 +10,7 @@ import {
     YAxis
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import styles from '../styles/Dashboard.module.css';
 
 const Dashboard: React.FC = () => {
   // Mock data - replace with actual data from backend/Redux
@@ -33,11 +34,11 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className={`p-6 space-y-6 ${styles.dashboardContainer}`}>
       <h1 className="text-3xl font-bold">Farm Dashboard</h1>
 
       {/* Egg Production Card */}
-      <Card>
+      <Card className={styles.chartContainer}>
         <CardHeader>
           <CardTitle>Egg Production Trends</CardTitle>
         </CardHeader>
@@ -65,12 +66,14 @@ const Dashboard: React.FC = () => {
           {feedInventoryData.map((feed) => (
             <div
               key={feed.type}
-              className={`p-4 mb-2 rounded ${feed.current < feed.low ? 'bg-red-100' : 'bg-green-100'}`}
+              className={`p-4 mb-2 rounded ${styles.inventoryItem} ${feed.current < feed.low ? 'bg-red-100' : 'bg-green-100'}`}
             >
               <h3 className="font-semibold">{feed.type}</h3>
               <p>Current Stock: {feed.current} kg</p>
               {feed.current < feed.low && (
-                <p className="text-red-600 font-bold">Low Stock Alert!</p>
+                <p className={`text-red-600 font-bold ${styles.lowStockPulse}`}>
+                  Low Stock Alert!
+                </p>
               )}
             </div>
           ))}
@@ -83,7 +86,7 @@ const Dashboard: React.FC = () => {
           <CardTitle>Medication Schedule</CardTitle>
         </CardHeader>
         <CardContent>
-          <table className="w-full">
+          <table className={`w-full ${styles.medicationTable}`}>
             <thead>
               <tr className="bg-gray-100">
                 <th className="p-2 text-left">Medication</th>

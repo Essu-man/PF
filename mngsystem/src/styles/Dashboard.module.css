@@ -1,0 +1,50 @@
+.dashboardContainer {
+    transition: all 0.3s ease;
+  }
+
+  .chartContainer {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .inventoryItem {
+    transition: transform 0.2s ease;
+  }
+
+  .inventoryItem:hover {
+    transform: scale(1.02);
+  }
+
+  .lowStockPulse {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+  }
+
+  .medicationTable {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .medicationTable tr:nth-child(even) {
+    background-color: rgba(249, 250, 251, 0.5);
+  }
+
+  .medicationTable tr:hover {
+    background-color: rgba(229, 231, 235, 0.3);
+    transition: background-color 0.2s ease;
+  }
