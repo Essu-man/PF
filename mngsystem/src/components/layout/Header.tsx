@@ -142,7 +142,7 @@ const Header: React.FC = () => {
               borderRadius: '50%',
               width: '40px',
               height: '40px',
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              background: '#2ecc71',
               color: 'white'
             }}
           >

@@ -20,11 +20,11 @@ import styles from '../styles/Dashboard.module.css';
 const Dashboard: React.FC = () => {
   // Egg Size Production Data
   const eggSizeData = [
-    { size: 'Small', count: 50, color: '#3498db' },
+    { size: 'Small', count: 50, color: '#2ecc71' },
     { size: 'Medium', count: 200, color: '#2ecc71' },
-    { size: 'Large', count: 350, color: '#f39c12' },
-    { size: 'Extra Large', count: 250, color: '#e74c3c' },
-    { size: 'Jumbo', count: 100, color: '#9b59b6' }
+    { size: 'Large', count: 350, color: '#2ecc71' },
+    { size: 'Extra Large', count: 250, color: '#2ecc71' },
+    { size: 'Jumbo', count: 100, color: '#2ecc71' }
   ];
 
   // Animal Mortality Data
@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-50">
 
-      <div className="flex-1 flex flex-col overflow-hidden pl-64"> {/* Account for sidebar width */}
+      <div className="flex-1 flex flex-col overflow-hidden pl-64">
         {/* Optional: Add Header component here if needed */}
          <Header />
 
@@ -91,7 +91,11 @@ const Dashboard: React.FC = () => {
                       <XAxis dataKey="size" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="count" fill="#8884d8">
+                      <Bar
+                        dataKey="count"
+                        fill="#8884d8"
+                        radius={[10, 10, 0, 0]} // This adds radius to top corners
+                      >
                         {eggSizeData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
@@ -112,12 +116,15 @@ const Dashboard: React.FC = () => {
                         data={mortalityData}
                         cx="50%"
                         cy="50%"
-                        labelLine={true}
                         outerRadius={130}
                         fill="#8884d8"
                         dataKey="value"
                         label={({ name, value, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                        labelLine={{ stroke: '#555555', strokeWidth: 1 }}
+                        labelLine={{
+                          stroke: '#555555',
+                          strokeWidth: 1,
+                          enabled: true
+                        }}
                       >
                         {mortalityData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
