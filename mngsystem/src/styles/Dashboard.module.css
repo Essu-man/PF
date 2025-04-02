@@ -75,6 +75,22 @@
   color: #2c3e50;
 }
 
+.dashboardContainer {
+  max-width: 100%;
+  margin-left: 0;
+}
+
+.chartContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.halfChart {
+  flex: 1 1 45%;
+  min-width: 300px;
+}
+
 .pageTitle {
   font-size: 2.5rem;
   font-weight: 700;

@@ -1,26 +1,18 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import Sidebar from '../layout/Sidebar';
 
-const Layout: React.FC = () => {
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
+    <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
-
-      {/* Main Content Area */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Header */}
-        <Header />
-
-        {/* Main Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
-          <div className="container mx-auto px-6 py-8">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <Outlet />
-            </div>
-          </div>
+      <div className="ml-64 flex-1 flex flex-col">
+        <main className="flex-1 p-6">
+          {children}
         </main>
       </div>
     </div>
