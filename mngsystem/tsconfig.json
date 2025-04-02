@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@/lib/*": ["src/lib/*"] // Added mapping for lib directory
+      "@/lib/*": ["src/components/lib/*"] // Added mapping for lib directory
     }
   },
   "files": [],

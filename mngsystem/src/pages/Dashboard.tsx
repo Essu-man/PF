@@ -29,8 +29,8 @@ const Dashboard: React.FC = () => {
 
   // Animal Mortality Data
   const mortalityData = [
-    { name: 'Healthy', value: 650, color: '#3498db'},
-    { name: 'Sick', value: 150, color: '#2ecc71' },
+    { name: 'Healthy', value: 650, color: '#2ecc71'},
+    { name: 'Sick', value: 150, color: '#f39c12' },
     { name: 'Dead', value: 100, color: '#e74c3c'}
   ];
 
@@ -103,26 +103,54 @@ const Dashboard: React.FC = () => {
 
               <Card className={styles.halfChart}>
                 <CardHeader>
-                  <CardTitle className={`text-center ${styles.chartTitle}`}>Animal Mortality</CardTitle>
+                  <CardTitle className={`text-center ${styles.chartTitle} mb-8`}>Animal Mortality</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={500}>
+                <CardContent className="pt-4">
+                  <ResponsiveContainer width="100%" height={400}>
                     <PieChart>
                       <Pie
                         data={mortalityData}
                         cx="50%"
                         cy="50%"
-                        labelLine={false}
-                        outerRadius={120}
+                        labelLine={true}
+                        outerRadius={130}
                         fill="#8884d8"
                         dataKey="value"
+                        label={({ name, value, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                        labelLine={{ stroke: '#555555', strokeWidth: 1 }}
                       >
                         {mortalityData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <Tooltip />
-                      <Legend />
+                      <Tooltip
+                        position={{ x: 250, y: 150 }}
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            const data = payload[0].payload;
+                            return (
+                              <div className="bg-white p-3 rounded-lg shadow-md border border-gray-200">
+                                <p className="font-semibold text-gray-800" style={{ color: data.color }}>
+                                  {data.name}
+                                </p>
+                                <p className="text-gray-600">Count: {data.value}</p>
+                                <p className="text-gray-600">
+                                  Percentage: {((data.value / mortalityData.reduce((acc, curr) => acc + curr.value, 0)) * 100).toFixed(1)}%
+                                </p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Legend
+                        verticalAlign="middle"
+                        align="right"
+                        layout="vertical"
+                        wrapperStyle={{
+                          paddingLeft: "20px"
+                        }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </CardContent>
