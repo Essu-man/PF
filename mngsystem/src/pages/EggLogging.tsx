@@ -102,7 +102,7 @@ const EggLogging: React.FC = () => {
                       type="number"
                       min="0"
                       className="w-full"
-                      {...register(`eggCounts.${size.name}` as any, {
+                      {...register(`eggCounts.${size.name}` as `eggCounts.${EggSizeKey}`, {
                         setValueAs: (v) => v ? Number(v) : 0
                       })}
                     />
@@ -143,3 +143,6 @@ const EggLogging: React.FC = () => {
 };
 
 export default EggLogging;
+
+// Add this type definition near the top of the file, after eggSizes
+type EggSizeKey = typeof eggSizes[number]['name'];
