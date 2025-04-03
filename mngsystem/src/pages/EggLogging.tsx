@@ -3,9 +3,11 @@ import { Egg } from 'lucide-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import Header from '../components/layout/Header';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
+import styles from '../styles/EggLogging.module.css';
 
 const eggSizes = [
   { name: 'Peewee', minWeight: '35g' },
@@ -58,86 +60,93 @@ const EggLogging: React.FC = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <Card className="shadow-lg">
-        <CardHeader className="space-y-2 border-b pb-4">
-          <div className="flex items-center gap-2">
-            <Egg className="h-6 w-6 text-green-500" />
-            <CardTitle className="text-2xl">Daily Egg Production Log</CardTitle>
-          </div>
-          <CardDescription>
-            Record daily egg collection details including sizes and quantities
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Collection Date</label>
-                <Input
-                  type="date"
-                  className="w-full"
-                  {...register('date', {
-                    setValueAs: (v) => v ? new Date(v) : undefined
-                  })}
-                />
-                {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Chicken House ID (Optional)</label>
-                <Input {...register('chickenHouseId')} className="w-full" />
-              </div>
-            </div>
+    <div className="flex h-screen bg-gray-50">
+      <div className="flex-1 flex flex-col overflow-hidden pl-64">
+        <Header />
+        <main className="flex-1 overflow-y-auto p-6">
+          <div className={styles.dashboardContainer}>
+            <Card className={styles.card}>
+              <CardHeader className={styles.header}>
+                <div className="flex items-center gap-2">
+                  <Egg className="h-6 w-6 text-green-500" />
+                  <CardTitle className={styles.title}>Daily Egg Production Log</CardTitle>
+                </div>
+                <CardDescription>
+                  Record daily egg collection details including sizes and quantities
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className={styles.inputGroup}>
+                      <label className={styles.label}>Collection Date</label>
+                      <Input
+                        type="date"
+                        className="w-full"
+                        {...register('date', {
+                          setValueAs: (v) => v ? new Date(v) : undefined
+                        })}
+                      />
+                      {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
+                    </div>
+                    <div className={styles.inputGroup}>
+                      <label className={styles.label}>Chicken House ID (Optional)</label>
+                      <Input {...register('chickenHouseId')} className="w-full" />
+                    </div>
+                  </div>
 
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="font-medium mb-4">Egg Size Distribution</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {eggSizes.map((size) => (
-                  <div key={size.name} className="space-y-2">
-                    <label className="text-sm font-medium flex justify-between">
-                      <span>{size.name}</span>
-                      <span className="text-gray-500 text-xs">Min: {size.minWeight}</span>
-                    </label>
-                    <Input
-                      type="number"
-                      min="0"
-                      className="w-full"
-                      {...register(`eggCounts.${size.name}` as `eggCounts.${EggSizeKey}`, {
-                        setValueAs: (v) => v ? Number(v) : 0
-                      })}
+                  <div className={styles.eggSizeGrid}>
+                    <h3 className={styles.label}>Egg Size Distribution</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {eggSizes.map((size) => (
+                        <div key={size.name} className={styles.inputGroup}>
+                          <label className="flex justify-between items-center">
+                            <span className={styles.label}>{size.name}</span>
+                            <span className={styles.minWeight}>Min: {size.minWeight}</span>
+                          </label>
+                          <Input
+                            type="number"
+                            min="0"
+                            className="w-full"
+                            {...register(`eggCounts.${size.name}` as `eggCounts.${EggSizeKey}`, {
+                              setValueAs: (v) => v ? Number(v) : 0
+                            })}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label className={styles.label}>Notes (Optional)</label>
+                    <textarea
+                      className={styles.notes}
+                      placeholder="Add any additional observations or notes..."
+                      {...register('notes')}
                     />
                   </div>
-                ))}
-              </div>
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Notes (Optional)</label>
-              <textarea
-                className="w-full min-h-[100px] rounded-md border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Add any additional observations or notes..."
-                {...register('notes')}
-              />
-            </div>
-
-            <div className="flex justify-end gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => reset()}
-              >
-                Clear Form
-              </Button>
-              <Button
-                type="submit"
-                className="bg-green-600 hover:bg-green-700"
-              >
-                Log Production
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+                  <div className={styles.buttonContainer}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => reset()}
+                    >
+                      Clear Form
+                    </Button>
+                    <Button
+                      type="submit"
+                      className={styles.submitButton}
+                    >
+                      Log Production
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+      </div>
     </div>
   );
 };
