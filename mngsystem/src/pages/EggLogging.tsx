@@ -7,7 +7,7 @@ import Header from '../components/layout/Header';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
-import styles from '../styles/EggLogging.module.css';
+import styles from '../pages/styles/EggLogging.module.css';
 
 const eggSizes = [
   { name: 'Peewee', minWeight: '35g' },

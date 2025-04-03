@@ -15,7 +15,7 @@ import {
 } from 'recharts';
 import Header from '../components/layout/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import styles from '../styles/Dashboard.module.css';
+import styles from '../pages/styles/Dashboard.module.css';
 
 const Dashboard: React.FC = () => {
   // Egg Size Production Data
