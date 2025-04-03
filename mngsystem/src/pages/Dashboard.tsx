@@ -1,3 +1,4 @@
+
 import { AlertTriangle, Package, Wheat } from 'lucide-react';
 import React from 'react';
 import {
@@ -39,7 +40,7 @@ const Dashboard: React.FC = () => {
     { type: 'Starter Feed', current: 350, low: 150, icon: Package },
   ];
 
-  // Expanded Medication Data
+  // Updated medication data with status colors
   const medicationData = [
     {
       medication: 'Newcastle Vaccine',
@@ -47,7 +48,8 @@ const Dashboard: React.FC = () => {
       lastAdministered: '2024-02-15',
       nextDue: '2024-04-15',
       dosage: '0.5 mL',
-      status: 'Upcoming'
+      status: 'Upcoming',
+      statusColor: '#22c55e'
     },
     {
       medication: 'Coccidiosis Treatment',
@@ -55,7 +57,8 @@ const Dashboard: React.FC = () => {
       lastAdministered: '2024-01-20',
       nextDue: '2024-05-20',
       dosage: '1 mL',
-      status: 'Pending'
+      status: 'Pending',
+      statusColor: '#f59e0b'
     },
     {
       medication: 'Deworming',
@@ -63,7 +66,8 @@ const Dashboard: React.FC = () => {
       lastAdministered: '2024-03-01',
       nextDue: '2024-06-01',
       dosage: '2 mL',
-      status: 'Current'
+      status: 'Current',
+      statusColor: '#3b82f6'
     }
   ];
 
@@ -200,51 +204,49 @@ const Dashboard: React.FC = () => {
               })}
             </div>
 
-            {/* Medication Tracking Card */}
-            <Card>
+            {/* Remove the feedInventoryData mapping section */}
+
+            {/* Updated Medication Tracking Card */}
+            <Card className={styles.medicationCard}>
               <CardHeader>
-                <CardTitle className={`text-center ${styles.medicationTitle}`}>Medication Schedule</CardTitle>
+                <CardTitle className={styles.medicationTitle}>
+                  Medication Schedule
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <table className={`w-full ${styles.medicationTable}`}>
-                  <thead>
-                    <tr>
-                      <th className="p-2 text-center">Medication</th>
-                      <th className="p-2 text-center">Type</th>
-                      <th className="p-2 text-center">Last Administered</th>
-                      <th className="p-2 text-center">Next Due</th>
-                      <th className="p-2 text-center">Dosage</th>
-                      <th className="p-2 text-center">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {medicationData.map((med) => (
-                      <tr
-                        key={med.medication}
-                        className={`border-b ${
-                          med.status === 'Upcoming' ? styles.upcomingMedication :
-                          med.status === 'Current' ? styles.currentMedication :
-                          styles.pendingMedication
-                        }`}
-                      >
-                        <td className="p-2 text-center">{med.medication}</td>
-                        <td className="p-2 text-center">{med.type}</td>
-                        <td className="p-2 text-center">{med.lastAdministered}</td>
-                        <td className="p-2 text-center">{med.nextDue}</td>
-                        <td className="p-2 text-center">{med.dosage}</td>
-                        <td className="p-2 text-center">
-                          <span className={`${styles.medicationStatusBadge} ${
-                            med.status === 'Upcoming' ? styles.upcomingBadge :
-                            med.status === 'Current' ? styles.currentBadge :
-                            styles.pendingBadge
-                          }`}>
-                            {med.status}
-                          </span>
-                        </td>
+                <div className={styles.medicationTableWrapper}>
+                  <table className={styles.medicationTable}>
+                    <thead>
+                      <tr>
+                        <th>Medication</th>
+                        <th>Type</th>
+                        <th>Last Administered</th>
+                        <th>Next Due</th>
+                        <th>Dosage</th>
+                        <th>Status</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {medicationData.map((med) => (
+                        <tr key={med.medication}>
+                          <td className={styles.medicationName}>{med.medication}</td>
+                          <td>{med.type}</td>
+                          <td>{med.lastAdministered}</td>
+                          <td className={styles.nextDue}>{med.nextDue}</td>
+                          <td>{med.dosage}</td>
+                          <td>
+                            <span
+                              className={styles.statusBadge}
+                              style={{ backgroundColor: `${med.statusColor}15`, color: med.statusColor }}
+                            >
+                              {med.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </CardContent>
             </Card>
           </div>
