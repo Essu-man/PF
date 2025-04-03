@@ -119,11 +119,10 @@ const Dashboard: React.FC = () => {
                         outerRadius={130}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, value, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                        label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                         labelLine={{
-                          stroke: '#555555',
                           strokeWidth: 1,
-                          enabled: true
+                          stroke: '#555555'
                         }}
                       >
                         {mortalityData.map((entry, index) => (
