@@ -1,5 +1,5 @@
 
-import { AlertTriangle, Package, Wheat } from 'lucide-react';
+import { Package, Wheat } from 'lucide-react';
 import React from 'react';
 import {
   Bar,
@@ -98,7 +98,7 @@ const Dashboard: React.FC = () => {
                       <Bar
                         dataKey="count"
                         fill="#8884d8"
-                        radius={[10, 10, 0, 0]} // This adds radius to top corners
+                        radius={[10, 10, 0, 0]}
                       >
                         {eggSizeData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
@@ -167,42 +167,7 @@ const Dashboard: React.FC = () => {
               </Card>
             </div>
 
-            {/* Feed Inventory Cards */}
-            <div className={styles.inventoryCardContainer}>
-              {feedInventoryData.map((feed) => {
-                const Icon = feed.icon;
-                const isLowStock = feed.current < feed.low;
 
-                return (
-                  <Card
-                    key={feed.type}
-                    className={`${styles.inventoryItem} ${isLowStock ? styles.lowStockCard : ''}`}
-                    data-status={isLowStock ? 'low' : 'sufficient'}
-                  >
-                    <CardHeader className={styles.inventoryCardHeader}>
-                      <div className={styles.inventoryIconContainer}>
-                        <Icon
-                          className={`${styles.inventoryIcon} ${isLowStock ? styles.lowStockIcon : ''}`}
-                          size={40}
-                        />
-                      </div>
-                      <CardTitle className={styles.inventoryCardTitle}>{feed.type}</CardTitle>
-                    </CardHeader>
-                    <CardContent className={styles.inventoryCardContent}>
-                      <div className={styles.stockInfo}>
-                        <p className={styles.stockQuantity}>Current Stock: {feed.current} kg</p>
-                        {isLowStock && (
-                          <div className={styles.lowStockAlert}>
-                            <AlertTriangle className={styles.alertIcon} size={20} />
-                            <span className={styles.lowStockPulse}>Low Stock Alert!</span>
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
 
             {/* Remove the feedInventoryData mapping section */}
 
