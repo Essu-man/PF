@@ -1,5 +1,4 @@
 
-import { Package, Wheat } from 'lucide-react';
 import React from 'react';
 import {
   Bar,
@@ -35,12 +34,9 @@ const Dashboard: React.FC = () => {
     { name: 'Dead', value: 100, color: '#e74c3c'}
   ];
 
-  const feedInventoryData = [
-    { type: 'Layer Feed', current: 500, low: 200, icon: Wheat },
-    { type: 'Starter Feed', current: 350, low: 150, icon: Package },
-  ];
+  // Remove feedInventoryData and its imports (Package, Wheat)
 
-  // Updated medication data with status colors
+  // Medication data and rest of the component remains the same...
   const medicationData = [
     {
       medication: 'Newcastle Vaccine',

@@ -8,6 +8,9 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import styles from '../pages/styles/EggLogging.module.css';
+// Add this import
+import { FileText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const eggSizes = [
   { name: 'Peewee', minWeight: '35g' },
@@ -35,6 +38,7 @@ const eggLoggingSchema = z.object({
 type EggLoggingFormData = z.infer<typeof eggLoggingSchema>;
 
 const EggLogging: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -65,6 +69,15 @@ const EggLogging: React.FC = () => {
         <Header />
         <main className="flex-1 overflow-y-auto p-6">
           <div className={styles.dashboardContainer}>
+            {/* Add this button before the Card component */}
+            <Button
+              className={styles.viewRecordsButton}
+              onClick={() => navigate('/egg-records')}
+            >
+              <FileText className="w-5 h-5 mr-2" />
+              View Production Records
+            </Button>
+
             <Card className={styles.card}>
               <CardHeader className={styles.header}>
                 <div className="flex items-center gap-2">
