@@ -101,31 +101,55 @@
 
 .recordsTable th {
   background: #f9fafb;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
   text-align: left;
-  font-weight: 600;
-  color: #374151;
-  font-size: 0.875rem;
-  border-bottom: 1px solid #e5e7eb;
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 0.9375rem;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
 }
 
 .recordsTable td {
-  padding: 1rem;
-  border-bottom: 1px solid #f3f4f6;
-  color: #4b5563;
-  font-size: 0.875rem;
+  padding: 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.recordsTable tr:hover {
+  background-color: #f8fafc;
 }
 
 .totalColumn {
-  font-weight: 600;
-  color: #059669 !important;
+  font-weight: 700 !important;
+  color: #047857 !important;
+  background: #f0fdf4;
 }
 
 .notesCell {
-  max-width: 200px;
+  max-width: 250px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #4b5563;
+}
+
+.tableCard {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f1f5f9;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  padding: 0.5rem;
+}
+
+.recordsTable tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .backButton {

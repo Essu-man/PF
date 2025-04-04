@@ -9,7 +9,6 @@ import styles from './styles/EggRecords.module.css';
 const EggRecords: React.FC = () => {
   const navigate = useNavigate();
 
-  // Sample data - replace with actual data
   const weeklyRecords = [
     {
       date: '2024-02-20',
@@ -25,7 +24,90 @@ const EggRecords: React.FC = () => {
       total: 1200,
       notes: 'Normal production day'
     },
-    // Add more days...
+    {
+      date: '2024-02-19',
+      houseId: 'H-002',
+      sizes: {
+        Peewee: 45,
+        Small: 180,
+        Medium: 350,
+        Large: 450,
+        'Extra Large': 220,
+        Jumbo: 90
+      },
+      total: 1335,
+      notes: 'Higher production in House 2'
+    },
+    {
+      date: '2024-02-18',
+      houseId: 'H-001',
+      sizes: {
+        Peewee: 55,
+        Small: 165,
+        Medium: 310,
+        Large: 380,
+        'Extra Large': 190,
+        Jumbo: 95
+      },
+      total: 1195,
+      notes: 'Slight decrease in large eggs'
+    },
+    {
+      date: '2024-02-17',
+      houseId: 'H-002',
+      sizes: {
+        Peewee: 48,
+        Small: 170,
+        Medium: 330,
+        Large: 420,
+        'Extra Large': 210,
+        Jumbo: 105
+      },
+      total: 1283,
+      notes: 'Increased jumbo production'
+    },
+    {
+      date: '2024-02-16',
+      houseId: 'H-001',
+      sizes: {
+        Peewee: 52,
+        Small: 155,
+        Medium: 290,
+        Large: 410,
+        'Extra Large': 205,
+        Jumbo: 98
+      },
+      total: 1210,
+      notes: 'Regular production levels'
+    },
+    {
+      date: '2024-02-15',
+      houseId: 'H-002',
+      sizes: {
+        Peewee: 47,
+        Small: 175,
+        Medium: 340,
+        Large: 430,
+        'Extra Large': 215,
+        Jumbo: 92
+      },
+      total: 1299,
+      notes: 'Good medium egg yield'
+    },
+    {
+      date: '2024-02-14',
+      houseId: 'H-001',
+      sizes: {
+        Peewee: 51,
+        Small: 160,
+        Medium: 320,
+        Large: 390,
+        'Extra Large': 195,
+        Jumbo: 97
+      },
+      total: 1213,
+      notes: 'Standard production day'
+    }
   ];
 
   return (
