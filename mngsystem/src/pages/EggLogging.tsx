@@ -70,23 +70,26 @@ const EggLogging: React.FC = () => {
         <main className="flex-1 overflow-y-auto p-6">
           <div className={styles.dashboardContainer}>
             {/* Add this button before the Card component */}
-            <Button
-              className={styles.viewRecordsButton}
-              onClick={() => navigate('/egg-records')}
-            >
-              <FileText className="w-5 h-5 mr-2" />
-              View Production Records
-            </Button>
+
 
             <Card className={styles.card}>
               <CardHeader className={styles.header}>
-                <div className="flex items-center gap-2">
-                  <Egg className="h-6 w-6 text-green-500" />
-                  <CardTitle className={styles.title}>Daily Egg Production Log</CardTitle>
+                <div className={styles.titleSection}>
+                  <div className="flex items-center gap-2">
+                    <Egg className="h-6 w-6 text-green-500" />
+                    <CardTitle className={styles.title}>Daily Egg Production Log</CardTitle>
+                  </div>
+                  <CardDescription>
+                    Record daily egg collection details including sizes and quantities
+                  </CardDescription>
                 </div>
-                <CardDescription>
-                  Record daily egg collection details including sizes and quantities
-                </CardDescription>
+                <Button
+                  className={styles.viewRecordsButton}
+                  onClick={() => navigate('/egg-records')}
+                >
+                  <FileText className="w-5 h-5" />
+                  View Records
+                </Button>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
