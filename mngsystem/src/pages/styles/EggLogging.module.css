@@ -364,3 +364,63 @@
   box-shadow: 0 8px 15px rgba(34, 197, 94, 0.2);
   background: linear-gradient(135deg, #16a34a, #15803d);
 }
+
+.eggLoggingContainer {
+  position: absolute;
+  left: 280px;
+  width: calc(100% - 280px);
+  min-height: 100vh;
+  padding: 2.5rem;
+  background-color: #f8fafc;
+  color: #2c3e50;
+  overflow-y: auto;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.dashboardContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .eggLoggingContainer {
+    left: 280px;
+    width: calc(100% - 280px);
+    padding: 2rem;
+  }
+
+  .dashboardContainer {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .eggLoggingContainer {
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .dashboardContainer {
+    padding: 1rem;
+  }
+}

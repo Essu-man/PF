@@ -62,9 +62,10 @@ const EggLogging: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <div className="flex-1 flex flex-col overflow-hidden pl-64">
-        <Header />
+    <>
+      <Header />
+      <div className={styles.eggLoggingContainer}>
+        <h1 className={styles.pageTitle}>Egg Logging</h1>
         <main className="flex-1 overflow-y-auto p-6">
           <div className={styles.dashboardContainer}>
             {/* Add this button before the Card component */}
@@ -159,7 +160,7 @@ const EggLogging: React.FC = () => {
           </div>
         </main>
       </div>
-    </div>
+    </>
   );
 };
 

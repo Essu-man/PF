@@ -1,31 +1,131 @@
-.recordsContainer {
+.eggRecordsContainer {
+  position: absolute;
+  left: 280px;
+  width: calc(100% - 280px);
+  min-height: 100vh;
+  padding: 2.5rem;
+  background-color: #f8fafc;
+  color: #2c3e50;
+  overflow-y: auto;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.contentContainer {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .eggRecordsContainer {
+    left: 280px;
+    width: calc(100% - 280px);
+    padding: 2rem;
+  }
+
+  .contentContainer {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .eggRecordsContainer {
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contentContainer {
+    padding: 1rem;
+  }
 }
 
 .headerSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 2rem;
+  gap: 2rem;
 }
 
 .titleGroup {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
 }
 
-.pageTitle {
-  font-size: 1.875rem;
-  font-weight: 600;
-  color: #111827;
+.backButton {
+  padding: 0.5rem;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background: #f1f5f9;
+  color: #1f2937;
+  transform: translateX(-2px);
 }
 
 .searchSection {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: 300px;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: #1f2937;
+}
+
+.dateButton {
+  background: white;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.dateButton:hover {
+  background: #f1f5f9;
+  color: #1f2937;
 }
 
 .searchBar {
