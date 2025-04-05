@@ -75,19 +75,37 @@
   color: #2c3e50;
 }
 
+/* Remove duplicate declarations and fix positioning */
 .dashboardContainer {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  width: 100%;
+  position: absolute;
+  left: 280px; /* Align with sidebar width */
+  width: calc(100% - 280px);
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--poultry-background);
+  color: #2c3e50;
 }
 
 .chartContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
   width: 100%;
+}
+
+/* Update responsive behavior */
+@media (max-width: 1024px) {
+  .dashboardContainer {
+    left: 280px;
+    width: calc(100% - 280px);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    left: 0;
+    width: 100%;
+  }
 }
 
 .chartContainer {
