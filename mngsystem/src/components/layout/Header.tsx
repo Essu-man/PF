@@ -1,4 +1,4 @@
-import { Bell, User, LayoutDashboard, Egg, Cookie, Pill, ChevronRight } from 'lucide-react';
+import { Bell, ChevronRight, Cookie, Egg, LayoutDashboard, Pill, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../ui/button';

@@ -18,7 +18,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import styles from '../pages/styles/Dashboard.module.css';
 
 const Dashboard: React.FC = () => {
-  // Egg Size Production Data
   const eggSizeData = [
     { size: 'Small', count: 50, color: '#2ecc71' },
     { size: 'Medium', count: 200, color: '#2ecc71' },
@@ -27,16 +26,12 @@ const Dashboard: React.FC = () => {
     { size: 'Jumbo', count: 100, color: '#2ecc71' }
   ];
 
-  // Animal Mortality Data
   const mortalityData = [
     { name: 'Healthy', value: 650, color: '#2ecc71'},
     { name: 'Sick', value: 150, color: '#f39c12' },
     { name: 'Dead', value: 100, color: '#e74c3c'}
   ];
 
-  // Remove feedInventoryData and its imports (Package, Wheat)
-
-  // Medication data and rest of the component remains the same...
   const medicationData = [
     {
       medication: 'Newcastle Vaccine',
@@ -69,20 +64,15 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-
-      <div className="flex-1 flex flex-col overflow-hidden pl-64">
-        {/* Optional: Add Header component here if needed */}
-         <Header />
-
+      <Header />
+      <div className="flex-1 flex flex-col overflow-hidden pl-[280px]">
         <main className="flex-1 overflow-y-auto p-6">
-          <div className={`space-y-6 ${styles.dashboardContainer}`}>
-            <h1 className={styles.pageTitle}>Dashboard</h1>
-
-            {/* Egg Production Charts */}
+          <div className={styles.dashboardContainer}>
+            <h1 className={styles.pageTitle}>Dashboard Overview</h1>
             <div className={styles.chartContainer}>
               <Card className={styles.halfChart}>
                 <CardHeader>
-                  <CardTitle className={`text-center ${styles.chartTitle}`}>Egg Size Distribution</CardTitle>
+                  <CardTitle className={styles.chartTitle}>Egg Size Distribution</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={400}>
@@ -91,11 +81,7 @@ const Dashboard: React.FC = () => {
                       <XAxis dataKey="size" />
                       <YAxis />
                       <Tooltip />
-                      <Bar
-                        dataKey="count"
-                        fill="#8884d8"
-                        radius={[10, 10, 0, 0]}
-                      >
+                      <Bar dataKey="count" fill="#8884d8" radius={[10, 10, 0, 0]}>
                         {eggSizeData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
@@ -107,9 +93,9 @@ const Dashboard: React.FC = () => {
 
               <Card className={styles.halfChart}>
                 <CardHeader>
-                  <CardTitle className={`text-center ${styles.chartTitle} mb-8`}>Animal Mortality</CardTitle>
+                  <CardTitle className={styles.chartTitle}>Animal Mortality</CardTitle>
                 </CardHeader>
-                <CardContent className="pt-4">
+                <CardContent>
                   <ResponsiveContainer width="100%" height={400}>
                     <PieChart>
                       <Pie
@@ -120,59 +106,22 @@ const Dashboard: React.FC = () => {
                         fill="#8884d8"
                         dataKey="value"
                         label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                        labelLine={{
-                          strokeWidth: 1,
-                          stroke: '#555555'
-                        }}
                       >
                         {mortalityData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <Tooltip
-                        position={{ x: 250, y: 150 }}
-                        content={({ active, payload }) => {
-                          if (active && payload && payload.length) {
-                            const data = payload[0].payload;
-                            return (
-                              <div className="bg-white p-3 rounded-lg shadow-md border border-gray-200">
-                                <p className="font-semibold text-gray-800" style={{ color: data.color }}>
-                                  {data.name}
-                                </p>
-                                <p className="text-gray-600">Count: {data.value}</p>
-                                <p className="text-gray-600">
-                                  Percentage: {((data.value / mortalityData.reduce((acc, curr) => acc + curr.value, 0)) * 100).toFixed(1)}%
-                                </p>
-                              </div>
-                            );
-                          }
-                          return null;
-                        }}
-                      />
-                      <Legend
-                        verticalAlign="middle"
-                        align="right"
-                        layout="vertical"
-                        wrapperStyle={{
-                          paddingLeft: "20px"
-                        }}
-                      />
+                      <Tooltip />
+                      <Legend verticalAlign="bottom" height={36} />
                     </PieChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
             </div>
 
-
-
-            {/* Remove the feedInventoryData mapping section */}
-
-            {/* Updated Medication Tracking Card */}
             <Card className={styles.medicationCard}>
               <CardHeader>
-                <CardTitle className={styles.medicationTitle}>
-                  Medication Schedule
-                </CardTitle>
+                <CardTitle className={styles.medicationTitle}>Medication Schedule</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className={styles.medicationTableWrapper}>
