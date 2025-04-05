@@ -1,9 +1,9 @@
 // src/pages/MedicationTracking.tsx
 import React, { useState } from 'react';
+import Header from '../components/layout/Header';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
-
 interface Medication {
   id: string;
   name: string;
@@ -64,6 +64,7 @@ const MedicationTracking: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
+      <Header/>
       <Card>
         <CardHeader>
           <CardTitle>Medication Schedule</CardTitle>
