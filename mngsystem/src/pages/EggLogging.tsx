@@ -110,21 +110,36 @@ const EggLogging: React.FC = () => {
 
                   <div className={styles.eggSizeGrid}>
                     <h3 className={styles.label}>Egg Size Distribution</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {eggSizes.map((size) => (
-                        <div key={size.name} className={styles.inputGroup}>
-                          <label className="flex justify-between items-center">
+                        <div key={size.name} className={styles.sizeRow}>
+                          <div className={styles.sizeInfo}>
                             <span className={styles.label}>{size.name}</span>
                             <span className={styles.minWeight}>Min: {size.minWeight}</span>
-                          </label>
-                          <Input
-                            type="number"
-                            min="0"
-                            className="w-full"
-                            {...register(`eggCounts.${size.name}` as `eggCounts.${EggSizeKey}`, {
-                              setValueAs: (v) => v ? Number(v) : 0
-                            })}
-                          />
+                          </div>
+                          <div className={styles.countInputs}>
+                            <div className={styles.inputWrapper}>
+                              <label className={styles.smallLabel}>Crates</label>
+                              <Input
+                                type="number"
+                                min="0"
+                                className="w-full"
+                                {...register(`eggCounts.${size.name}` as `eggCounts.${EggSizeKey}`, {
+                                  setValueAs: (v) => v ? Number(v) : 0
+                                })}
+                              />
+                            </div>
+                            <div className={styles.inputWrapper}>
+                              <label className={styles.smallLabel}>Pieces</label>
+                              <Input
+                                type="number"
+                                min="0"
+                                className="w-full"
+                                disabled
+                                value={register(`eggCounts.${size.name}`).value * 30}
+                              />
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>

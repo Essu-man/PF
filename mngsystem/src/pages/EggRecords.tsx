@@ -1,9 +1,9 @@
+import { ArrowLeft, Calendar, Search } from 'lucide-react';
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import { Button } from '../components/ui/button';
-import {  ArrowLeft, Calendar, Search } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import styles from './styles/EggRecords.module.css';
 
 const EggRecords: React.FC = () => {
