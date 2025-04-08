@@ -221,3 +221,13 @@
 .userButton .userIcon {
   color: white;
 }
+
+.mobileMenuButton svg {
+  color: #22c55e;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mobileMenuButton:hover svg {
+  color: #16a34a;
+}

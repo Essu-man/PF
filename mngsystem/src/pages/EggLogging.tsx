@@ -254,15 +254,15 @@ const EggLogging: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Add the totals section here */}
-                  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                    <h3 className={styles.label}>Totals</h3>
+                  <div className={styles.totalsSection}>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p>Total Crates: {totalCrates}</p>
+                        <h4 className={styles.totalLabel}>Total Crates</h4>
+                        <div className={styles.totalValue}>{totalCrates}</div>
                       </div>
                       <div>
-                        <p>Total Pieces: {totalPieces}</p>
+                        <h4 className={styles.totalLabel}>Total Pieces</h4>
+                        <div className={styles.totalValue}>{totalPieces}</div>
                       </div>
                     </div>
                   </div>

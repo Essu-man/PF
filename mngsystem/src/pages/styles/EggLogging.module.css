@@ -572,3 +572,94 @@
 .selectIcon {
   @apply h-6 w-6 text-green-600 transition-transform duration-300;
 }
+
+.eggLoggingContainer {
+  padding: 2rem;
+  margin-left: 280px;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.eggSizeGrid {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.sizeRow {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  margin-bottom: 0.75rem;
+}
+
+.countInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.totalsSection {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #22c55e15, #16a34a15);
+  border-radius: 1rem;
+  border: 1px solid #22c55e30;
+}
+
+.totalValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #16a34a;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.totalLabel {
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .eggLoggingContainer {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .sizeRow {
+    grid-template-columns: 1fr;
+  }
+
+  .countInputs {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .countInputs {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .totalsSection {
+    padding: 1rem;
+  }
+
+  .totalValue {
+    font-size: 1.5rem;
+  }
+}
