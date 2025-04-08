@@ -151,13 +151,6 @@ const EggLogging: React.FC = () => {
                     Record daily egg collection details including sizes and quantities
                   </CardDescription>
                 </div>
-                <Button
-                  className={styles.viewRecordsButton}
-                  onClick={() => navigate('/egg-records')}
-                >
-                  <FileText className="w-5 h-5" />
-                  View Records
-                </Button>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
