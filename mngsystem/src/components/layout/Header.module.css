@@ -10,7 +10,78 @@
   top: 0;
   z-index: 50;
   padding: 1.5rem;
-  overflow-y: auto; /* Added for scrolling if needed */
+  overflow-y: auto;
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .mobileMenuButton {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .userSection {
+    display: none;
+  }
+
+  .showMobile {
+    display: flex;
+  }
+
+  .mobileOpen {
+    height: 100vh;
+  }
+
+  .navigation.showMobile {
+    display: flex;
+    margin-top: 1rem;
+  }
+
+  .userSection.showMobile {
+    display: flex;
+    margin-top: auto;
+  }
+
+  .logoSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Tablet Specific */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .sidebar {
+    padding: 1.25rem;
+  }
+
+  .navText {
+    font-size: 1rem;
+  }
 }
 
 .logoSection {
