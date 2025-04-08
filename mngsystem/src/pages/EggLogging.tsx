@@ -1,14 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FileText } from 'lucide-react';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldError, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 import Header from '../components/layout/Header';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
+
+import { toast } from 'react-hot-toast';
 import styles from '../pages/styles/EggLogging.module.css';
+
+// Add this import at the top
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 
 const eggSizes = [
   { name: 'Peewee', minWeight: '35g' },
@@ -30,18 +35,36 @@ const eggLoggingSchema = z.object({
     Large: z.number().min(0, "Count must be positive"),
     'Extra Large': z.number().min(0, "Count must be positive"),
     Jumbo: z.number().min(0, "Count must be positive"),
+    PeeweePieces: z.number().min(0, "Count must be positive").max(30, "Pieces cannot exceed 30"),
+    SmallPieces: z.number().min(0, "Count must be positive").max(30, "Pieces cannot exceed 30"),
+    MediumPieces: z.number().min(0, "Count must be positive").max(30, "Pieces cannot exceed 30"),
+    LargePieces: z.number().min(0, "Count must be positive").max(30, "Pieces cannot exceed 30"),
+    'Extra LargePieces': z.number().min(0, "Count must be positive").max(30, "Pieces cannot exceed 30"),
+    JumboPieces: z.number().min(0, "Count must be positive").max(30, "Pieces cannot exceed 30"),
   })
 });
 
 type EggLoggingFormData = z.infer<typeof eggLoggingSchema>;
+type EggSizeKey = typeof eggSizes[number]['name'];
 
+// Add this near the top of the component
 const EggLogging: React.FC = () => {
   const navigate = useNavigate();
+
+  // Replace the existing chickenHouses state with this
+  const [chickenHouses] = React.useState([
+    { id: 1, house_name: 'House A - Layer Section', capacity: 1000 },
+    { id: 2, house_name: 'House B - Broiler Section', capacity: 800 }
+  ]);
+
+  // Remove the useEffect since we're using static data now
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
+    watch
   } = useForm<EggLoggingFormData>({
     resolver: zodResolver(eggLoggingSchema),
     defaultValues: {
@@ -52,13 +75,53 @@ const EggLogging: React.FC = () => {
         Large: 0,
         'Extra Large': 0,
         Jumbo: 0,
+        PeeweePieces: 0,
+        SmallPieces: 0,
+        MediumPieces: 0,
+        LargePieces: 0,
+        'Extra LargePieces': 0,
+        JumboPieces: 0,
       }
     }
   });
 
-  const onSubmit = (data: EggLoggingFormData) => {
-    console.log(data);
-    reset();
+  // Add the totals calculation inside the component
+  const eggCounts = watch('eggCounts');
+  const totalCrates = Object.entries(eggCounts)
+    .filter(([key]) => !key.includes('Pieces'))
+    .reduce((sum, [, value]) => sum + Number(value || 0), 0);
+
+  const totalPieces = Object.entries(eggCounts)
+    .filter(([key]) => key.includes('Pieces'))
+    .reduce((sum, [, value]) => sum + Number(value || 0), 0);
+
+  const onSubmit = async (data: EggLoggingFormData) => {
+    try {
+      const formattedData = {
+        date: data.date.toISOString().split('T')[0], // Format date as YYYY-MM-DD
+        chickenHouseId: data.chickenHouseId,
+        eggCounts: data.eggCounts,
+        notes: data.notes
+      };
+
+      const response = await fetch('http://localhost:5000/api/egg-production', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save data');
+      }
+
+      toast.success('Production log saved successfully');
+      reset();
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Failed to save production log');
+    }
   };
 
   return (
@@ -68,9 +131,8 @@ const EggLogging: React.FC = () => {
         <h1 className={styles.pageTitle}>Egg Logging</h1>
         <main className="flex-1 overflow-y-auto p-6">
           <div className={styles.dashboardContainer}>
-            {/* Add this button before the Card component */}
             <Card className={styles.card}>
-              <CardHeader className={styles.header}>
+              <CardHeader>
                 <div className={styles.titleSection}>
                   <div className="flex items-center gap-2">
                     {/* <Egg className="h-6 w-6 text-green-500" /> */}
@@ -100,11 +162,42 @@ const EggLogging: React.FC = () => {
                           setValueAs: (v) => v ? new Date(v) : undefined
                         })}
                       />
-                      {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
+                      {errors.date && (
+                        <p className="text-red-500 text-sm">
+                          {(errors.date as FieldError)?.message || 'Invalid date'}
+                        </p>
+                      )}
                     </div>
                     <div className={styles.inputGroup}>
-                      <label className={styles.label}>Chicken House ID (Optional)</label>
-                      <Input {...register('chickenHouseId')} className="w-full" />
+                      <label className={styles.label}>Chicken House</label>
+                      <Select
+                        defaultValue=""
+                        onValueChange={(value) => {
+                          const event = {
+                            target: { name: 'chickenHouseId', value: value }
+                          };
+                          register('chickenHouseId').onChange(event);
+                        }}
+                      >
+                        <SelectTrigger className={styles.selectTrigger}>
+                          <SelectValue placeholder="Select a chicken house" />
+                        </SelectTrigger>
+                        <SelectContent className={styles.selectContent}>
+                          {chickenHouses.map(house => (
+                            <SelectItem
+                              key={house.id}
+                              value={String(house.id)}
+                            >
+                              {house.house_name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.chickenHouseId && (
+                        <p className="text-red-500 text-sm">
+                          {(errors.chickenHouseId as FieldError)?.message || 'Please select a chicken house'}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -134,14 +227,34 @@ const EggLogging: React.FC = () => {
                               <Input
                                 type="number"
                                 min="0"
+                                max="30"
                                 className="w-full"
-                                disabled
-                                value={register(`eggCounts.${size.name}`).value * 30}
+                                {...register(`eggCounts.${size.name}Pieces` as `eggCounts.${EggSizeKey}Pieces`, {
+                                  setValueAs: (v) => v ? Number(v) : 0
+                                })}
                               />
+                              {errors.eggCounts?.[`${size.name}Pieces` as keyof typeof errors.eggCounts] && (
+                                <p className="text-red-500 text-sm">
+                                  {(errors.eggCounts[`${size.name}Pieces` as keyof typeof errors.eggCounts] as FieldError)?.message || 'Invalid input'}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+
+                  {/* Add the totals section here */}
+                  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h3 className={styles.label}>Totals</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p>Total Crates: {totalCrates}</p>
+                      </div>
+                      <div>
+                        <p>Total Pieces: {totalPieces}</p>
+                      </div>
                     </div>
                   </div>
 
@@ -180,6 +293,3 @@ const EggLogging: React.FC = () => {
 };
 
 export default EggLogging;
-
-// Add this type definition near the top of the file, after eggSizes
-type EggSizeKey = typeof eggSizes[number]['name'];
