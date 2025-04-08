@@ -19,6 +19,28 @@
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .mobileMenuButton {
+    display: block;
+    position: fixed;
+    right: 1.5rem;
+    top: 1.25rem;
+    z-index: 100;
+  }
+
+  .logoSection {
+    height: 70px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
 }
 
 /* Responsive Styles */
