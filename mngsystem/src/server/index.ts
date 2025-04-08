@@ -20,7 +20,7 @@ app.get('/api/chicken-houses', async (_req, res) => {
   }
 });
 
-app.get('/api/some-endpoint', async (_req, res) => {
+app.get('/api/chicken-houses', async (_req, res) => {
   try {
     const result = await pool.query('SELECT * FROM poultry.chicken_houses ORDER BY house_name');
     res.json(result.rows);
@@ -30,6 +30,7 @@ app.get('/api/some-endpoint', async (_req, res) => {
   }
 });
 
+// Update the query to use the correct schema
 app.post('/api/egg-production', async (req, res) => {
   try {
     const {

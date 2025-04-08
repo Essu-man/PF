@@ -97,12 +97,19 @@ const EggLogging: React.FC = () => {
 
   const onSubmit = async (data: EggLoggingFormData) => {
     try {
+      // Format the data properly
       const formattedData = {
-        date: data.date.toISOString().split('T')[0], // Format date as YYYY-MM-DD
-        chickenHouseId: data.chickenHouseId,
-        eggCounts: data.eggCounts,
-        notes: data.notes
+        date: data.date.toISOString().split('T')[0],
+        chickenHouseId: data.chickenHouseId ? parseInt(data.chickenHouseId) : null,
+        eggCounts: {
+          ...data.eggCounts,
+          'Extra Large': data.eggCounts['Extra Large'],
+          'Extra LargePieces': data.eggCounts['Extra LargePieces']
+        },
+        notes: data.notes || ''
       };
+
+      console.log('Sending data:', formattedData); // Debug log
 
       const response = await fetch('http://localhost:5000/api/egg-production', {
         method: 'POST',
@@ -113,7 +120,9 @@ const EggLogging: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save data');
+        const errorData = await response.json();
+        console.error('Server error:', errorData); // Debug log
+        throw new Error(errorData.details || 'Failed to save data');
       }
 
       toast.success('Production log saved successfully');
