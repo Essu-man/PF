@@ -47,17 +47,16 @@ const eggLoggingSchema = z.object({
 type EggLoggingFormData = z.infer<typeof eggLoggingSchema>;
 type EggSizeKey = typeof eggSizes[number]['name'];
 
-// Add this near the top of the component
+
 const EggLogging: React.FC = () => {
   const navigate = useNavigate();
 
-  // Replace the existing chickenHouses state with this
   const [chickenHouses] = React.useState([
     { id: 1, house_name: 'House A - Layer Section', capacity: 1000 },
     { id: 2, house_name: 'House B - Broiler Section', capacity: 800 }
   ]);
 
-  // Remove the useEffect since we're using static data now
+
 
   const {
     register,
@@ -85,7 +84,7 @@ const EggLogging: React.FC = () => {
     }
   });
 
-  // Add the totals calculation inside the component
+
   const eggCounts = watch('eggCounts');
   const totalCrates = Object.entries(eggCounts)
     .filter(([key]) => !key.includes('Pieces'))

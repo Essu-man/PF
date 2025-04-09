@@ -366,48 +366,49 @@
 }
 
 .eggLoggingContainer {
-  position: absolute;
+  position: fixed;
+  top: 0;
   left: 280px;
   width: calc(100% - 280px);
-  min-height: 100vh;
-  padding: 2.5rem;
+  height: 100vh;
+  padding: 1.5rem;
   background-color: #f8fafc;
+  overflow-y: auto;
 }
 
 .pageTitle {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
 }
 
 .dashboardContainer {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0;
+  padding: 1.5rem;
   background: white;
-  padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Responsive adjustments */
 @media (max-width: 1024px) {
   .eggLoggingContainer {
     left: 280px;
     width: calc(100% - 280px);
-    padding: 2rem;
+    padding: 1.5rem;
   }
 
   .dashboardContainer {
-    padding: 1.5rem;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 768px) {
   .eggLoggingContainer {
+    position: absolute;
     left: 0;
     width: 100%;
     padding: 1.5rem;
@@ -419,7 +420,7 @@
   }
 
   .dashboardContainer {
-    padding: 1rem;
+    padding: 1.5rem;
   }
 }
 
@@ -631,7 +632,7 @@
   letter-spacing: 0.05em;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 1024px) {
   .eggLoggingContainer {
     margin-left: 0;
