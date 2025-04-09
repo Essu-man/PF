@@ -109,7 +109,7 @@ const EggLogging: React.FC = () => {
         notes: data.notes || ''
       };
 
-      console.log('Sending data:', formattedData); // Debug log
+      console.log('Sending data:', formattedData);
 
       const response = await fetch('http://localhost:5000/api/egg-production', {
         method: 'POST',
@@ -121,7 +121,7 @@ const EggLogging: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Server error:', errorData); // Debug log
+        console.error('Server error:', errorData);
         throw new Error(errorData.details || 'Failed to save data');
       }
 
@@ -151,6 +151,13 @@ const EggLogging: React.FC = () => {
                     Record daily egg collection details including sizes and quantities
                   </CardDescription>
                 </div>
+                <Button
+                  className={styles.viewRecordsButton}
+                  onClick={() => navigate('/egg-records')}
+                >
+                  <FileText className="w-5 h-5" />
+                  View Records
+                </Button>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -247,6 +254,7 @@ const EggLogging: React.FC = () => {
                     </div>
                   </div>
 
+                  // Replace the totals section with this:
                   <div className={styles.totalsSection}>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
