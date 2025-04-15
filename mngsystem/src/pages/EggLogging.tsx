@@ -47,10 +47,11 @@ const eggLoggingSchema = z.object({
 type EggLoggingFormData = z.infer<typeof eggLoggingSchema>;
 type EggSizeKey = typeof eggSizes[number]['name'];
 
-
+// Add this near the top of the component
 const EggLogging: React.FC = () => {
   const navigate = useNavigate();
 
+  // Replace the existing chickenHouses state with this
   const [chickenHouses] = React.useState([
     { id: 1, house_name: 'House A - Layer Section', capacity: 1000 },
     { id: 2, house_name: 'House B - Broiler Section', capacity: 800 }
@@ -84,7 +85,7 @@ const EggLogging: React.FC = () => {
     }
   });
 
-
+  // Add the totals calculation inside the component
   const eggCounts = watch('eggCounts');
   const totalCrates = Object.entries(eggCounts)
     .filter(([key]) => !key.includes('Pieces'))
@@ -108,7 +109,7 @@ const EggLogging: React.FC = () => {
         notes: data.notes || ''
       };
 
-      console.log('Sending data:', formattedData);
+      console.log('Sending data:', formattedData); // Debug log
 
       const response = await fetch('http://localhost:5000/api/egg-production', {
         method: 'POST',
@@ -120,7 +121,7 @@ const EggLogging: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Server error:', errorData);
+        console.error('Server error:', errorData); // Debug log
         throw new Error(errorData.details || 'Failed to save data');
       }
 
@@ -253,16 +254,15 @@ const EggLogging: React.FC = () => {
                     </div>
                   </div>
 
-                  // Replace the totals section with this:
-                  <div className={styles.totalsSection}>
+                  {/* Add the totals section here */}
+                  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h3 className={styles.label}>Totals</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <h4 className={styles.totalLabel}>Total Crates</h4>
-                        <div className={styles.totalValue}>{totalCrates}</div>
+                        <p>Total Crates: {totalCrates}</p>
                       </div>
                       <div>
-                        <h4 className={styles.totalLabel}>Total Pieces</h4>
-                        <div className={styles.totalValue}>{totalPieces}</div>
+                        <p>Total Pieces: {totalPieces}</p>
                       </div>
                     </div>
                   </div>

@@ -31,80 +31,442 @@
   color: #2c3e50;
 }
 
-.pageTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  color: black;
-  text-transform: uppercase;
-  letter-spacing: -1px;
+.dashboardContainer {
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.contentWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
 }
 
-.chartTitle {
-  text-align: center;
-  color: black;
+.titleSection h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
 }
 
-:root {
-  /* Color Palette */
-  --poultry-primary: #4A90E2;     /* Bright blue */
-  --poultry-secondary: #50D890;   /* Mint green */
-  --poultry-background: #f4f6f9;  /* Light gray-blue */
-  --poultry-accent-light: #E9C46A;  /* Soft golden */
-  --poultry-accent-dark: #7F5A32;   /* Deep brown */
-
-  /* Status Colors */
-  --status-success: #2ecc71;
-  --status-danger: #e74c3c;
-  --status-warning: #f39c12;
-  --status-info: #3498db;
+.date {
+  color: #6b7280;
+  font-size: 0.875rem;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-}
-
-.dashboardContainer {
-  background-color: var(--poultry-background);
-  min-height: 100vh;
-  padding: 2rem;
-  color: #2c3e50;
-}
-
-/* Remove duplicate declarations and fix positioning */
-.dashboardContainer {
-  position: absolute;
-  left: 280px; /* Align with sidebar width */
-  width: calc(100% - 280px);
-  min-height: 100vh;
-  padding: 2rem;
-  background-color: var(--poultry-background);
-  color: #2c3e50;
-}
-
-.chartContainer {
+.headerActions {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  width: 100%;
+  gap: 0.75rem;
 }
 
-/* Update responsive behavior */
+.exportButton, .newEntryButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exportButton {
+  background-color: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.newEntryButton {
+  background-color: #10b981;
+  color: white;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.statCard {
+  padding: 1.25rem;
+  background: white;
+  border-radius: 0.5rem;
+}
+
+.statHeader {
+  margin-bottom: 1.5rem;
+}
+
+.statTitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.statSubtext {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.statBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Progress bar container */
+.progressContainer {
+  width: 100%;
+  height: 4px;
+  background-color: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Progress bar fill */
+.progressFill {
+  height: 100%;
+  background-color: #10b981;
+  transition: width 0.3s ease;
+}
+
+.trendPositive {
+  color: #10b981;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.trendNegative {
+  color: #ef4444;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.statNote {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.statTitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.statSubtext {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.trendPositive {
+  color: #10b981;
+  font-size: 0.875rem;
+}
+
+.trendNegative {
+  color: #ef4444;
+  font-size: 0.875rem;
+}
+
+.chartsSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.productionTrends {
+  background: white;
+}
+
+.recentActivities {
+  background: white;
+}
+
+.activity {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.activityIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.activityInfo {
+  flex: 1;
+}
+
+.activityTitle {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.activityTime {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inventoryItem {
+  margin-bottom: 1rem;
+}
+
+.itemLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.taskInfo {
+  flex: 1;
+}
+
+.taskTitle {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.taskDate {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.priority {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.high {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.medium {
+  background-color: #fef3c7;
+  color: #f59e0b;
+}
+
+.low {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.statLabel {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.chartsSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.productionTrends {
+  height: 100%;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inventoryStatus {
+  margin-bottom: 1rem;
+}
+
+.inventoryItem {
+  margin-bottom: 1rem;
+}
+
+.itemLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.taskInfo {
+  flex: 1;
+}
+
+.taskTitle {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.taskDate {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.priority {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.high {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.medium {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.low {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.activitiesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: #f8fafc;
+}
+
+.activityIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.activityInfo {
+  flex: 1;
+}
+
+.activityTitle {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.activityTime {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
 @media (max-width: 1024px) {
-  .dashboardContainer {
-    left: 280px;
-    width: calc(100% - 280px);
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chartsSection {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 768px) {
-  .dashboardContainer {
-    left: 0;
+@media (max-width: 640px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .headerActions {
     width: 100%;
+  }
+
+  .exportButton, .newEntryButton {
+    flex: 1;
   }
 }
 
