@@ -1,37 +1,59 @@
+import * as echarts from "echarts";
+import { Calendar, Clock, Download, Plus, TrendingDown, TrendingUp } from "lucide-react";
+import { useEffect, useRef } from "react";
+import Header from "../components/layout/Header";
+import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Progress } from "../components/ui/progress";
+import styles from "./styles/Dashboard.module.css";
 
-import * as echarts from 'echarts';
-import { useEffect, useRef } from 'react';
-import Header from '../components/layout/Header';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Progress } from '../components/ui/progress';
-import styles from './styles/Dashboard.module.css';
+const productionData = [
+  { date: "Apr 10", eggProduction: 380, feedConsumption: 110 },
+  { date: "Apr 11", eggProduction: 610, feedConsumption: 200 },
+  { date: "Apr 12", eggProduction: 680, feedConsumption: 250 },
+  { date: "Apr 13", eggProduction: 730, feedConsumption: 300 },
+  { date: "Apr 14", eggProduction: 600, feedConsumption: 100 },
+  { date: "Apr 15", eggProduction: 570, feedConsumption: 280 },
+  { date: "Apr 16", eggProduction: 360, feedConsumption: 320 },
+];
 
-const Dashboard = () => {
-  const chartRef = useRef(null);
+const inventoryData = [
+  { name: "Layer Feed", level: 75 },
+  { name: "Starter Feed", level: 45 },
+  { name: "Vitamins", level: 90 },
+  { name: "Egg Cartons", level: 30 },
+];
 
-  const productionData = [
-    { date: 'Apr 15', production: 400, consumption: 380 },
-    { date: 'Apr 16', production: 300, consumption: 290 },
-    { date: 'Apr 17', production: 350, consumption: 310 },
-    { date: 'Apr 18', production: 450, consumption: 400 },
-    { date: 'Apr 19', production: 500, consumption: 450 },
-    { date: 'Apr 20', production: 400, consumption: 380 },
-    { date: 'Apr 21', production: 350, consumption: 320 },
-  ];
+const upcomingTasks = [
+  { task: "Coop Cleaning", date: "Today", time: "8:30 AM", priority: "HIGH", icon: '🧹' }, // Added icons
+  { task: "Vaccination", date: "Apr 25", time: "10:00 AM", priority: "Medium", icon: '💉' },
+  { task: "Feed Delivery", date: "Apr 26", time: "1:00 PM", priority: "Medium", icon: '🚚' },
+  { task: "Monthly Inspection", date: "Apr 30", time: "9:00 AM", priority: "Low", icon: '📋' },
+];
+
+const recentActivities = [
+  { activity: "Egg Collection Completed", details: "425 eggs collected from Coop A", time: "Today, 8:30 AM", icon: '🥚', color: '#e8f2ff', iconColor: '#3b82f6' }, // Added icons and colors
+  { activity: "Feed Distributed", details: "250kg of layer feed distributed", time: "Today, 7:15 AM", icon: '🌾', color: '#fef3c7', iconColor: '#d97706' },
+  { activity: "Medication Administered", details: "Vitamin supplement added to water", time: "Today, 6:45 AM", icon: '💊', color: '#f3e8ff', iconColor: '#9333ea' },
+  { activity: "Health Check Completed", details: "All birds in good condition", time: "Yesterday, 5:30 PM", icon: '✅', color: '#dcfce7', iconColor: '#16a34a' },
+];
+
+const Dashboard: React.FC = () => {
+  const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (chartRef.current) {
       const chart = echarts.init(chartRef.current);
-
       const option = {
         tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
+          trigger: "axis",
+          axisPointer: { type: "shadow" },
         },
         legend: {
-          data: ['Production', 'Consumption']
+          data: ["Egg Production", "Feed Consumption"],
+          top: 10, // Adjust legend position
+          right: 10,
         },
         grid: {
           left: '3%',
@@ -40,221 +62,228 @@ const Dashboard = () => {
           containLabel: true
         },
         xAxis: {
-          type: 'category',
-          data: productionData.map(item => item.date)
+          type: "category",
+          data: productionData.map((item) => item.date),
         },
         yAxis: {
-          type: 'value'
+          type: "value",
         },
         series: [
           {
-            name: 'Production',
-            type: 'bar',
-            data: productionData.map(item => item.production),
-            color: '#10b981'
+            name: "Egg Production",
+            type: "bar",
+            data: productionData.map((item) => item.eggProduction),
+            itemStyle: { color: "#22c55e" }, // Green color for bars
           },
           {
-            name: 'Consumption',
-            type: 'line',
-            data: productionData.map(item => item.consumption),
-            color: '#f59e0b'
-          }
-        ]
+            name: "Feed Consumption",
+            type: "line",
+            smooth: true, // Make line smoother
+            data: productionData.map((item) => item.feedConsumption),
+            itemStyle: { color: "#f59e0b" }, // Orange color for line
+            lineStyle: { width: 3 }, // Thicker line
+            symbol: 'circle', // Add circles to points
+            symbolSize: 8,
+          },
+        ],
       };
-
       chart.setOption(option);
 
+      // Handle chart resize
+      const resizeChart = () => chart.resize();
+      window.addEventListener('resize', resizeChart);
+
+      // Cleanup on component unmount
       return () => {
         chart.dispose();
+        window.removeEventListener('resize', resizeChart);
       };
     }
   }, []);
 
-  const recentActivities = [
-    { title: 'Egg Collection Completed', time: '2 hours ago', icon: '🥚' },
-    { title: 'Feed Distributed', time: '4 hours ago', icon: '🌾' },
-    { title: 'Medication Administered', time: '6 hours ago', icon: '💊' },
-    { title: 'Health Check Completed', time: '8 hours ago', icon: '✅' },
-  ];
-
-  const upcomingTasks = [
-    { title: 'Coop Cleaning', date: 'Tomorrow, 8AM', priority: 'High' },
-    { title: 'Vaccination', date: 'Apr 25, 2024', priority: 'Medium' },
-    { title: 'Feed Delivery', date: 'Apr 26, 2024', priority: 'Medium' },
-    { title: 'Monthly Inspection', date: 'Apr 30, 2024', priority: 'Low' },
-  ];
+  // Helper function for badge variants
+  const getBadgeVariant = (priority: string): "destructive" | "secondary" | "outline" => {
+    switch (priority.toUpperCase()) {
+      case 'HIGH': return 'destructive';
+      case 'MEDIUM': return 'secondary';
+      case 'LOW': return 'outline';
+      default: return 'secondary';
+    }
+  };
 
   return (
-    <>
-      <Header />
-      <div className={styles.dashboardContainer}>
-        <div className={styles.contentWrapper}>
-          <div className={styles.dashboardHeader}>
-            <div className={styles.titleSection}>
-              <h1>Dashboard</h1>
-              <span className={styles.date}>Thursday, April 10, 2025</span>
+    // Removed Header component call, assuming it's part of a layout wrapper now
+    <div className={styles.dashboardContainer}>
+      <Header/>
+      <header className={styles.dashboardHeader}>
+        <div> {/* Group title and date */}
+          <h1 className={styles.dashboardTitle}>Dashboard</h1>
+          <p className={styles.dashboardDate}>Wednesday, April 16, 2025</p>
+        </div>
+        <div className={styles.headerActions}>
+          <Button variant="outline">
+            <Download className="w-4 h-4 mr-2" /> {/* Use Download icon */}
+            Export Data
+          </Button>
+          <Button>
+            <Plus className="w-4 h-4 mr-2" /> {/* Use Plus icon */}
+            New Entry
+          </Button>
+        </div>
+      </header>
+
+      <div className={styles.statsGrid}> {/* Renamed from summaryCards */}
+        <Card className={styles.statCard}>
+          <CardHeader className={styles.statCardHeader}>
+            <CardTitle className={styles.statCardTitle}>Total Egg Production</CardTitle>
+          </CardHeader>
+          <CardContent className={styles.statCardContent}>
+            <div className={styles.statValueContainer}>
+              <span className={styles.statValue}>0</span>
+              <span className={styles.statUnit}>eggs today</span>
             </div>
-            <div className={styles.headerActions}>
-              <button className={styles.exportButton}>
-                <span>Export Data</span>
-              </button>
-              <button className={styles.newEntryButton}>
-                <span>New Entry</span>
-              </button>
+            <Progress value={12} className={styles.statProgress} />
+            <p className={`${styles.statTrend} ${styles.trendPositive}`}>
+              <TrendingUp className="w-4 h-4 mr-1" /> 12% from yesterday
+            </p>
+          </CardContent>
+        </Card>
+        <Card className={styles.statCard}>
+          <CardHeader className={styles.statCardHeader}>
+            <CardTitle className={styles.statCardTitle}>Feed Consumption</CardTitle>
+          </CardHeader>
+          <CardContent className={styles.statCardContent}>
+            <div className={styles.statValueContainer}>
+              <span className={styles.statValue}>0</span>
+              <span className={styles.statUnit}>kg today</span>
             </div>
-          </div>
-
-          <div className={styles.statsGrid}>
-            <Card>
-              <CardContent className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <p className={styles.statTitle}>Total Egg Production</p>
-                  <div className={styles.statValue}>0</div>
-                  <p className={styles.statSubtext}>eggs today</p>
-                </div>
-                <div className={styles.statBottom}>
-                  <div className={styles.progressContainer}>
-                    <Progress value={65} className="h-1.5 w-full" />
-                  </div>
-                  <span className={styles.trendPositive}>↑ 12% from yesterday</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <p className={styles.statTitle}>Feed Consumption</p>
-                  <div className={styles.statValue}>0</div>
-                  <p className={styles.statSubtext}>kg today</p>
-                </div>
-                <div className={styles.statBottom}>
-                  <Progress value={45} className="h-1" />
-                  <p className={styles.trendNegative}>↓ 5% from yesterday</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <p className={styles.statTitle}>Active Medications</p>
-                  <div className={styles.statValue}>1</div>
-                  <p className={styles.statSubtext}>treatments</p>
-                </div>
-                <div className={styles.statBottom}>
-                  <Progress value={80} className="h-1" />
-                  <p className={styles.statNote}>Next completion in 5 days</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <p className={styles.statTitle}>Total Birds</p>
-                  <div className={styles.statValue}>2,450</div>
-                  <p className={styles.statSubtext}>birds</p>
-                </div>
-                <div className={styles.statBottom}>
-                  <Progress value={95} className="h-1" />
-                  <p className={styles.trendPositive}>Healthy population</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className={styles.chartsSection}>
-            <div className={styles.leftSection}>
-              <Card className={styles.productionTrends}>
-                <CardHeader>
-                  <CardTitle>Production Trends</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div ref={chartRef} style={{ width: '100%', height: '300px' }} />
-                </CardContent>
-              </Card>
-
-              <Card className={styles.recentActivities}>
-                <CardHeader>
-                  <CardTitle>Recent Activities</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className={styles.activitiesList}>
-                    {recentActivities.map((activity, index) => (
-                      <div key={index} className={styles.activity}>
-                        <span className={styles.activityIcon}>{activity.icon}</span>
-                        <div className={styles.activityInfo}>
-                          <div className={styles.activityTitle}>{activity.title}</div>
-                          <div className={styles.activityTime}>{activity.time}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            <Progress value={5} className={styles.statProgress} />
+            <p className={`${styles.statTrend} ${styles.trendNegative}`}>
+              <TrendingDown className="w-4 h-4 mr-1" /> 5% from yesterday
+            </p>
+          </CardContent>
+        </Card>
+        <Card className={styles.statCard}>
+          <CardHeader className={styles.statCardHeader}>
+            <CardTitle className={styles.statCardTitle}>Active Medications</CardTitle>
+          </CardHeader>
+          <CardContent className={styles.statCardContent}>
+            <div className={styles.statValueContainer}>
+              <span className={styles.statValue}>1</span>
+              <span className={styles.statUnit}>treatments</span>
             </div>
-
-            <div className={styles.rightSection}>
-              <Card className={styles.inventoryStatus}>
-                <CardHeader>
-                  <CardTitle>Performance Metrics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className={styles.inventoryItem}>
-                    <div className={styles.itemLabel}>
-                      <span>Egg Production</span>
-                      <span>75%</span>
-                    </div>
-                    <Progress value={75} className="h-2" />
-                  </div>
-                  <div className={styles.inventoryItem}>
-                    <div className={styles.itemLabel}>
-                      <span>Feed Efficiency</span>
-                      <span>82%</span>
-                    </div>
-                    <Progress value={82} className="h-2" />
-                  </div>
-                  <div className={styles.inventoryItem}>
-                    <div className={styles.itemLabel}>
-                      <span>Bird Health</span>
-                      <span>95%</span>
-                    </div>
-                    <Progress value={95} className="h-2" />
-                  </div>
-                  <div className={styles.inventoryItem}>
-                    <div className={styles.itemLabel}>
-                      <span>Mortality Rate</span>
-                      <span>2%</span>
-                    </div>
-                    <Progress value={2} className="h-2" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className={styles.upcomingTasks}>
-                <CardHeader>
-                  <CardTitle>Upcoming Tasks</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {upcomingTasks.map((task, index) => (
-                    <div key={index} className={styles.task}>
-                      <div className={styles.taskInfo}>
-                        <div className={styles.taskTitle}>{task.title}</div>
-                        <div className={styles.taskDate}>{task.date}</div>
-                      </div>
-                      <div className={`${styles.priority} ${styles[task.priority.toLowerCase()]}`}>
-                        {task.priority}
-                      </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+            <Progress value={40} className={styles.statProgress} /> {/* Example progress */}
+            <p className={styles.statNote}>
+              Next completion in 5 days
+            </p>
+          </CardContent>
+        </Card>
+        <Card className={styles.statCard}>
+          <CardHeader className={styles.statCardHeader}>
+            <CardTitle className={styles.statCardTitle}>Total Birds</CardTitle>
+          </CardHeader>
+          <CardContent className={styles.statCardContent}>
+            <div className={styles.statValueContainer}>
+              <span className={styles.statValue}>2,450</span>
+              <span className={styles.statUnit}>birds</span>
             </div>
-          </div>
+            <Progress value={95} className={styles.statProgress} /> {/* Example progress */}
+            <p className={`${styles.statTrend} ${styles.trendPositive}`}>
+              Healthy population
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className={styles.mainContent}>
+        <div className={styles.leftColumn}> {/* Renamed */}
+          <Card className={styles.chartCard}> {/* Added class */}
+            <CardHeader>
+              <CardTitle>Production Trends</CardTitle>
+              <p className={styles.cardSubtitle}>Daily egg production and feed consumption</p> {/* Added class */}
+            </CardHeader>
+            <CardContent>
+              <div ref={chartRef} style={{ height: "350px", width: "100%" }} /> {/* Increased height slightly */}
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className={styles.rightColumn}> {/* Renamed */}
+          <Card className={styles.listCard}> {/* Added class */}
+            <CardHeader>
+              <CardTitle>Recent Activities</CardTitle>
+              <p className={styles.cardSubtitle}>Latest farm operations</p>
+            </CardHeader>
+            <CardContent className={styles.listCardContent}> {/* Added class */}
+              {recentActivities.map((activity, index) => (
+                <div key={index} className={styles.activityItem}>
+                  <div className={styles.activityIconWrapper} style={{ backgroundColor: activity.color }}>
+                    <span style={{ color: activity.iconColor }}>{activity.icon}</span>
+                  </div>
+                  <div className={styles.activityDetails}>
+                    <p className={styles.activityTitleText}>{activity.activity}</p> {/* Added class */}
+                    <p className={styles.activitySubText}>{activity.details}</p> {/* Added class */}
+                    <p className={styles.activityTimeText}>{activity.time}</p> {/* Added class */}
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </>
+
+      {/* Second Row for Inventory and Tasks */}
+      <div className={styles.mainContent}>
+        <div className={styles.leftColumn}>
+          <Card className={styles.listCard}>
+            <CardHeader>
+              <CardTitle>Inventory Status</CardTitle>
+              <p className={styles.cardSubtitle}>Current stock levels</p>
+            </CardHeader>
+            <CardContent className={styles.listCardContent}>
+              {inventoryData.map((item, index) => (
+                <div key={index} className={styles.inventoryItem}>
+                  <div className={styles.inventoryLabel}>
+                    <span>{item.name}</span>
+                    <span>{item.level}%</span>
+                  </div>
+                  <Progress value={item.level} className={styles.inventoryProgress} /> {/* Added class */}
+                </div>
+              ))}
+              <Button variant="outline" className={styles.viewInventoryButton}> {/* Added class */}
+                View Full Inventory
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className={styles.rightColumn}>
+          <Card className={styles.listCard}>
+            <CardHeader>
+              <CardTitle>Upcoming Tasks</CardTitle>
+              <p className={styles.cardSubtitle}>Scheduled farm activities</p>
+            </CardHeader>
+            <CardContent className={styles.listCardContent}>
+              {upcomingTasks.map((task, index) => (
+                <div key={index} className={styles.taskItem}>
+                   <div className={styles.activityIconWrapper} style={{ backgroundColor: '#e8f2ff' }}> {/* Example color */}
+                    <span style={{ color: '#3b82f6' }}>{task.icon}</span>
+                  </div>
+                  <div className={styles.taskDetails}> {/* Added class */}
+                    <p className={styles.activityTitleText}>{task.task}</p>
+                    <p className={styles.activitySubText}> {/* Use same style as activity */}
+                      <Calendar className="w-3 h-3 mr-1" /> {task.date} <Clock className="w-3 h-3 ml-2 mr-1" /> {task.time}
+                    </p>
+                  </div>
+                  <Badge variant={getBadgeVariant(task.priority)} className={styles.taskBadge}>{task.priority}</Badge> {/* Added class */}
+                </div>
+              ))}
+              {/* Removed Add New Task button to match screenshot */}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 };
 

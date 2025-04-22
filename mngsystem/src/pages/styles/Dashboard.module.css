@@ -1,792 +1,246 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-:root {
-  /* Color Palette */
-  --poultry-primary: #4A90E2;     /* Bright blue */
-  --poultry-secondary: #50D890;   /* Mint green */
-  --poultry-background: #f4f6f9;  /* Light gray-blue */
-  --poultry-accent-light: #E9C46A;  /* Soft golden */
-  --poultry-accent-dark: #7F5A32;   /* Deep brown */
-
-  /* Status Colors */
-  --status-success: #2ecc71;
-  --status-danger: #e74c3c;
-  --status-warning: #f39c12;
-  --status-info: #3498db;
+.app-container {
+  display: flex;
+  min-height: 100vh;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
+.sidebar {
+  width: 250px;
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  margin-bottom: 24px;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sidebar-nav ul {
+  list-style: none;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
 }
 
-.dashboardContainer {
-  background-color: var(--poultry-background);
-  min-height: 100vh;
-  padding: 2rem;
-  color: #2c3e50;
-}
-
-.dashboardContainer {
-  padding: 1.5rem;
-  background-color: #f9fafb;
-  min-height: 100vh;
-}
-
-.contentWrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.dashboardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.titleSection h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #111827;
-}
-
-.date {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.headerActions {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.exportButton, .newEntryButton {
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
-  font-size: 0.875rem;
+.sidebar-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.exportButton {
-  background-color: white;
-  color: #374151;
-  border: 1px solid #e5e7eb;
-}
-
-.newEntryButton {
-  background-color: #10b981;
-  color: white;
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.statCard {
-  padding: 1.25rem;
-  background: white;
-  border-radius: 0.5rem;
-}
-
-.statHeader {
-  margin-bottom: 1.5rem;
-}
-
-.statTitle {
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.statValue {
-  font-size: 1.875rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 0.25rem;
-}
-
-.statSubtext {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.statBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-/* Progress bar container */
-.progressContainer {
-  width: 100%;
-  height: 4px;
-  background-color: #e5e7eb;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-/* Progress bar fill */
-.progressFill {
-  height: 100%;
-  background-color: #10b981;
-  transition: width 0.3s ease;
-}
-
-.trendPositive {
-  color: #10b981;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.trendNegative {
-  color: #ef4444;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.statNote {
-  color: #6b7280;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.statTitle {
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.statValue {
-  font-size: 1.875rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 0.25rem;
-}
-
-.statSubtext {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.trendPositive {
-  color: #10b981;
-  font-size: 0.875rem;
-}
-
-.trendNegative {
-  color: #ef4444;
-  font-size: 0.875rem;
-}
-
-.chartsSection {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1.5rem;
-}
-
-.leftSection {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.productionTrends {
-  background: white;
-}
-
-.recentActivities {
-  background: white;
-}
-
-.activity {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.activityIcon {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 9999px;
-  background-color: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1rem;
-}
-
-.activityInfo {
-  flex: 1;
-}
-
-.activityTitle {
-  font-weight: 500;
-  color: #111827;
-  margin-bottom: 0.25rem;
-}
-
-.activityTime {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.rightSection {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.inventoryItem {
-  margin-bottom: 1rem;
-}
-
-.itemLabel {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.task {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.taskInfo {
-  flex: 1;
-}
-
-.taskTitle {
-  font-weight: 500;
-  color: #111827;
-  margin-bottom: 0.25rem;
-}
-
-.taskDate {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.priority {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.high {
-  background-color: #fee2e2;
-  color: #ef4444;
-}
-
-.medium {
-  background-color: #fef3c7;
-  color: #f59e0b;
-}
-
-.low {
-  background-color: #ecfdf5;
-  color: #10b981;
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.statValue {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-.statLabel {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.chartsSection {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.productionTrends {
-  height: 100%;
-}
-
-.rightSection {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.inventoryStatus {
-  margin-bottom: 1rem;
-}
-
-.inventoryItem {
-  margin-bottom: 1rem;
-}
-
-.itemLabel {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  color: #4b5563;
-  font-size: 0.875rem;
-}
-
-.task {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.taskInfo {
-  flex: 1;
-}
-
-.taskTitle {
-  font-weight: 500;
-  color: #1f2937;
-}
-
-.taskDate {
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-.priority {
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.high {
-  background-color: #fee2e2;
-  color: #dc2626;
-}
-
-.medium {
-  background-color: #fef3c7;
-  color: #d97706;
-}
-
-.low {
-  background-color: #dcfce7;
-  color: #16a34a;
-}
-
-.activitiesList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.activity {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  background-color: #f8fafc;
-}
-
-.activityIcon {
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #e5e7eb;
-  border-radius: 0.5rem;
-  font-size: 1.25rem;
-}
-
-.activityInfo {
-  flex: 1;
-}
-
-.activityTitle {
-  font-weight: 500;
-  color: #1f2937;
-}
-
-.activityTime {
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-@media (max-width: 1024px) {
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .chartsSection {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .headerActions {
-    width: 100%;
-  }
-
-  .exportButton, .newEntryButton {
-    flex: 1;
-  }
-}
-
-.chartContainer {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.halfChart {
-  flex: 1 1 45%;
-  min-width: 300px;
-}
-
-.pageTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  background:#2c3e50;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
-}
-
-.chartTitle {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: black;
-  text-align: center;
-}
-
-.medicationTitle {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: black;
-  text-align: center;
-}
-
-/* Chart Container Styles */
-.chartContainer {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.halfChart {
-  flex: 1;
-  border-radius: 16px;
-  overflow: hidden;
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.halfChart:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Inventory Card Styles */
-.inventoryCardContainer {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.inventoryCardContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 2rem; /* Increased padding */
-  background-color: #faf5f0;
-}
-.stockQuantity {
-  font-size: 1.5rem; /* Larger font size */
-  font-weight: 600; /* Bolder font */
-  color: #2c3e50; /* Darker color for emphasis */
-  text-align: center; /* Center the text */
-}
-
-.lowStockAlert {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center the alert */
-  color: var(--status-danger);
-  font-weight: 600;
-  gap: 0.5rem;
-  margin-top: 1rem; /* Added more space above the alert */
-}
-
-.inventoryItem {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
-  border-radius: 16px;
-  overflow: hidden;
-  background-color: white;
-  border: 2px solid var(--poultry-secondary);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.inventoryCardHeader {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: var(--poultry-secondary);
-}
-
-.inventoryIconContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  border-radius: 12px;
-  background-color: white;
-}
-
-.inventoryIcon {
-  color: var(--poultry-secondary);
-  transition: transform 0.3s ease;
-}
-
-/* Medication Table Styles */
-.medicationTable {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  background-color: white;
-}
-
-.medicationTable thead {
-  background:  var(--poultry-secondary) ;
-  color: white;
-}
-
-.medicationTable th {
-  padding: 1.5rem;
-  text-align: center;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.medicationTable tbody tr {
-  transition: background-color 0.3s ease;
-}
-
-.medicationTable tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.medicationTable tbody tr:hover {
-  background-color: #f0f4f8;
-}
-
-.medicationTable tbody td {
-  color: black;
-}
-
-/* Medication Status Badges */
-.medicationStatusBadge {
-  padding: 0.25rem 0.5rem;
+  padding: 12px;
+  margin-bottom: 8px;
   border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.upcomingBadge {
-  background-color: var(--status-info);
-  color: white;
+.sidebar-item:hover {
+  background-color: #374151;
 }
 
-.currentBadge {
-  background-color: var(--status-success);
-  color: white;
+.sidebar-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
 }
 
-.pendingBadge {
-  background-color: var(--status-warning);
-  color: white;
+.dashboard-container {
+  flex: 1;
+  padding: 24px;
+  background-color: #f3f4f6;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  .chartContainer {
-    flex-direction: column;
-  }
-
-  .inventoryCardContainer {
-    flex-direction: column;
-  }
-
-  .pageTitle {
-    font-size: 2rem;
-  }
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
-@media (max-width: 768px) {
-  .dashboardContainer {
-    padding: 1rem;
-  }
-
-  .pageTitle {
-    font-size: 1.5rem;
-  }
-}
-
-
-.medicationCard {
-  background: white;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-}
-
-.medicationTitle {
-  font-size: 1.5rem;
+.dashboard-header h1 {
+  font-size: 24px;
   font-weight: 700;
-  color: #0f172a;
-  position: relative;
-  padding-bottom: 1rem;
 }
 
-.medicationTitle::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-  border-radius: 2px;
+.dashboard-header p {
+  color: #6b7280;
 }
 
-.medicationTableWrapper {
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.header-actions button {
+  display: flex;
+  align-items: center;
+}
+
+.header-actions svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .summary-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.summary-cards .text-2xl {
+  font-size: 24px;
+}
+
+.summary-cards .text-green-500 {
+  color: #22c55e;
+}
+
+.summary-cards .text-red-500 {
+  color: #ef4444;
+}
+
+.summary-cards .text-gray-500 {
+  color: #6b7280;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    flex-direction: row;
+  }
+}
+
+.left-section {
+  flex: 1;
+}
+
+.right-section {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
-.medicationTable {
-  width: 100%;
-  min-width: 800px;
-  border-collapse: collapse;
-}
-
-.medicationTable th,
-.medicationTable td {
-  padding: 1rem;
-  text-align: left;
-  white-space: nowrap;
-}
-
-@media screen and (max-width: 768px) {
-  .medicationCard {
-    margin: 1rem;
-    overflow: hidden;
-  }
-
-  .medicationTableWrapper {
-    margin: -0.5rem;
-    padding: 0.5rem;
-  }
-
-  .medicationTable th,
-  .medicationTable td {
-    padding: 0.75rem;
-    font-size: 0.875rem;
+@media (min-width: 1024px) {
+  .right-section {
+    width: 33.333%;
   }
 }
 
-.medicationTable thead tr {
-  background: rgba(243, 244, 246, 0.8);
+.production-trends,
+.recent-activities,
+.inventory-status,
+.upcoming-tasks {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
-.medicationTable th {
-  padding: 1rem;
-  text-align: left;
+.production-trends p,
+.recent-activities p,
+.inventory-status p,
+.upcoming-tasks p {
+  color: #6b7280;
+}
+
+.inventory-item,
+.task-item,
+.activity-item {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.inventory-item p,
+.task-item p,
+.activity-item p {
+  margin-bottom: 4px;
+}
+
+.inventory-item .flex,
+.task-item .flex {
+  display: flex;
+  align-items: center;
+}
+
+.inventory-item .w-3\/4 {
+  width: 75%;
+  margin-right: 8px;
+}
+
+.task-item {
+  justify-content: space-between;
+}
+
+.activity-icon,
+.task-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.activity-icon {
+  background-color: #e0f2fe;
+}
+
+.task-icon {
+  background-color: #e5e7eb;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.font-semibold {
   font-weight: 600;
-  color: #4b5563;
-  border-bottom: 2px solid #e5e7eb;
 }
 
-.medicationTable td {
-  padding: 1rem;
-  border-bottom: 1px solid #f3f4f6;
-  color: #1f2937;
+.text-sm {
+  font-size: 12px;
 }
 
-.medicationName {
-  font-weight: 600;
-  color: #111827;
+.badge-high {
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
 }
 
-.nextDue {
-  color: #dc2626;
-  font-weight: 500;
+.badge-medium {
+  background-color: #f59e0b;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
 }
 
-.statusBadge {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.2s ease;
+.badge-low {
+  background-color: #22c55e;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
 }
 
-.medicationTable tr:hover {
-  background: rgba(243, 244, 246, 0.5);
-  transition: all 0.2s ease;
+.mt-4 {
+  margin-top: 16px;
 }

@@ -12,7 +12,6 @@ import { Input } from '../components/ui/input';
 import { toast } from 'react-hot-toast';
 import styles from '../pages/styles/EggLogging.module.css';
 
-// Add this import at the top
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 
 const eggSizes = [
